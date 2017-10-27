@@ -1,0 +1,32 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+
+
+<h1>News Aggregator</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'index' %}" method="post">
+{% csrf_token %}
+<input type="text" name="keywords" placeholder="Type some keywords here" value=""/>
+<input type="submit" value="Fetch" />
+</form>
+
+
+{% if list_news %}
+    <ul>
+    {% for news in list_news %}
+        <div class="label-{{ news.6 }}">
+            <li class="title"><a href="{{ news.2 }}">{{ news.0 }}</a></li>
+            <div class="news-content">{{ news.1 | safe }}</div>
+            <div class="news-date">{{ news.3 }}</div>
+            <div class="label">Group: {{ news.6 }}</div>
+            <div class="related-news-btn">
+                <a href="{% url 'related_news' forloop.counter %}" >Related news</a>
+            </div>
+        </div>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No news are available.</p>
+{% endif %}

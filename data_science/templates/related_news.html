@@ -1,0 +1,19 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+
+<h1>Related news</h1>
+
+{% if list_related_news %}
+    <ul>
+    {% for news in list_related_news %}
+        <div class="label-{{ news.6 }}">
+            <li class="title"><a href="{{ news.2 }}">{{ news.0 }}</a></li>
+            <div class="news-content">{{ news.1 | safe }}</div>
+            <div class="news-date">{{ news.3 }}</div>
+        </div>
+
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No related news found.</p>
+{% endif %}

@@ -1,0 +1,33 @@
+li a {
+    color: green;
+}
+
+.title {
+    font-size: 20px;
+    color: #1a5790;
+}
+
+.news-date {
+    color: #1a5790;
+    font-size: 12px;
+}
+
+.related-news-btn {
+    margin: 10px;
+}
+
+.label-0 {
+    background-color: antiquewhite;
+}
+
+.label-1 {
+    background-color: coral;
+}
+
+.label-2 {
+    background-color: #9ea56f;
+}
+
+.label-3 {
+    background-color: brown;
+}
