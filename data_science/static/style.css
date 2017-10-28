@@ -1,6 +1,14 @@
 .title {
+    margin: 10px 0;
+}
+.title a {
     font-size: 20px;
-    color: #1a5790;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.title a:hover {
+    color: #797a79;
 }
 
 img {

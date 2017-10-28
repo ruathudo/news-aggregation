@@ -21,7 +21,7 @@
         {% for news in list_news %}
             <div class="contents">
                 <div class="title">
-                    <a href="{{ news.2 }}" class="badge badge-light">{{ news.0 }}</a>
+                    <a href="{{ news.2 }}">{{ news.0 }}</a>
                 </div>
                 <div class="news-content">{{ news.1 | safe }}</div>
                 <span class="news-date">Date: {{ news.3 }}</span>
