@@ -77,7 +77,7 @@ class NewsFinder:
         Self-explanatory
         :return:
         """
-        if datetime.datetime.now() - self.last_cache_timestamp > datetime.timedelta(minutes=30):
+        if datetime.datetime.now() - self.last_cache_timestamp > datetime.timedelta(minutes=120):
             self.last_cache_timestamp = datetime.datetime.now()
             self.feeds = rf.get_default_feeds()
             self.feeds_data = rf.get_feeds_data(self.feeds)
