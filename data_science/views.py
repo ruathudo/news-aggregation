@@ -1,17 +1,15 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from newsaggregator import news_finder
+import newsaggregator.news_finder_with_cache as nf
 
-
-list_news = []
+news_finder = nf.NewsFinder()
 
 
 # Create your views here.
 def index(request):
-    global list_news
     keywords = request.POST.get("keywords")
-
+    is_list = False
     if keywords:
         print(keywords)
         # make keywords to a list
@@ -24,6 +22,7 @@ def index(request):
         if len(list_news) > 30:
             list_news = list_news[:30]
 
+        is_list = True
         # labels = news_finder.get_news_categorical_labels(list_news)
         # labeled_news = []
         #
@@ -31,21 +30,24 @@ def index(request):
         #     labeled_news.append(news + (label,))
         #
         # list_news = sorted(labeled_news, key=lambda x: x[6])
+    else:
+        list_news = news_finder.get_all_news_entries()
 
-    context = {'list_news': list_news}
+    context = {'list_news': list_news, 'is_list': is_list}
     return render(request, 'index.html', context)
 
 
 def related_news(request, entry_id):
-    global list_news
-    news_entry = list_news[int(entry_id) - 1]
     list_related_news = []
+    all_news = news_finder.get_all_news_entries()
+    news_entry = all_news[int(entry_id)]
     # labels = []
-
+    news_entry = news_entry[:5] + (int(entry_id),)
+    print(news_entry)
     if news_entry:
         # news_entry = news_entry[:6]
         list_related_news = news_finder.get_related_news(news_entry, top_entries=10)
-
+        print(list_related_news)
         labels = news_finder.get_news_categorical_labels(list_related_news)
         labeled_news = []
 

@@ -18,17 +18,31 @@
 
 
     {% if list_news %}
-        {% for news in list_news %}
-            <div class="contents">
-                <div class="title">
-                    <a href="{{ news.2 }}">{{ news.0 }}</a>
-                </div>
-                <div class="news-content">{{ news.1 | safe }}</div>
-                <span class="news-date">Date: {{ news.3 }}</span>
-                <a class="related-news-btn btn btn-primary" href="{% url 'related_news' forloop.counter %}" >Related news</a>
+        {% if is_list %}
+            {% for news in list_news %}
+                <div class="contents">
+                    <div class="title">
+                        <a href="{{ news.2 }}">{{ news.0 }}</a>
+                    </div>
+                    <div class="news-content">{{ news.1 | safe }}</div>
+                    <span class="news-date">Date: {{ news.3 }}</span>
+                    <a class="related-news-btn btn btn-primary" href="{% url 'related_news' news.5 %}" >Related news</a>
 
-            </div>
-        {% endfor %}
+                </div>
+            {% endfor %}
+        {% else %}
+            {% for id, news in list_news.items %}
+                <div class="contents">
+                    <div class="title">
+                        <a href="{{ news.2 }}">{{ news.0 }}</a>
+                    </div>
+                    <div class="news-content">{{ news.1 | safe }}</div>
+                    <span class="news-date">Date: {{ news.3 }}</span>
+                    <a class="related-news-btn btn btn-primary" href="{% url 'related_news' id %}" >Related news</a>
+
+                </div>
+            {% endfor %}
+        {% endif %}
     {% else %}
         <p>No news are available.</p>
     {% endif %}
