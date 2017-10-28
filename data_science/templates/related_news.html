@@ -1,19 +1,24 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+      integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
 
-<h1>Related news</h1>
+<div class="container">
+    <h1 class="text-center">Related news</h1>
+    {% if list_related_news %}
+        {% for news in list_related_news %}
+            <div class="contents">
+                <div class="title">
+                    <span class="news-label label-{{ news.6 }}"></span>
+                    <a href="{{ news.2 }}" class="badge badge-light">{{ news.0 }}</a>
+                </div>
+                <div class="news-content">{{ news.1 | safe }}</div>
+                <span class="news-date">Date: {{ news.3 }}</span>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No related news found.</p>
+    {% endif %}
+</div>
 
-{% if list_related_news %}
-    <ul>
-    {% for news in list_related_news %}
-        <div class="label-{{ news.6 }}">
-            <li class="title"><a href="{{ news.2 }}">{{ news.0 }}</a></li>
-            <div class="news-content">{{ news.1 | safe }}</div>
-            <div class="news-date">{{ news.3 }}</div>
-        </div>
 
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No related news found.</p>
-{% endif %}
